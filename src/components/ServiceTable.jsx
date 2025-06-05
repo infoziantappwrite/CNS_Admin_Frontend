@@ -12,6 +12,7 @@ const ServiceTable = ({ services, onView, onDelete }) => {
             <th className="py-3 px-4 text-left hidden sm:table-cell">Status</th>
             <th className="py-3 px-4 text-left hidden sm:table-cell">Date</th>
             <th className="py-3 px-4 text-left">Actions</th>
+
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-100">

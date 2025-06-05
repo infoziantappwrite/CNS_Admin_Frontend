@@ -1,13 +1,35 @@
 import { useState } from 'react';
+
 import icon from '../assets/images/logo/icon.png'; 
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Logging in with ${email}`);
+     setError('');
+
+    try {
+      const response = await axios.post('https://cns-admin-production.up.railway.app/api/v1/auth/login', {
+        email,
+        password,
+      });
+
+      if (response.data.success) {
+        localStorage.setItem('token', response.data.data.token);
+        navigate('/dashboard'); // go to dashboard
+      } else {
+        setError(response.data.message || 'Login failed');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed');
+    }
   };
 
   return (
@@ -48,6 +70,7 @@ export default function Login() {
             <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
               Password
             </label>
+
             <input
               type="password"
               id="password"

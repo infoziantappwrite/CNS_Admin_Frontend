@@ -20,7 +20,7 @@ export default function Header() {
               isActive ? "text-yellow-400 font-bold" : "hover:text-yellow-400 transition"
             }
           >
-            Home
+            Dashboard
           </NavLink>
           <NavLink
             to="/login"
@@ -30,14 +30,7 @@ export default function Header() {
           >
             Login
           </NavLink>
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) =>
-              isActive ? "text-yellow-400 font-bold" : "hover:text-yellow-400 transition"
-            }
-          >
-            Dashboard
-          </NavLink>
+          
           <NavLink
             to="/profile"
             className={({ isActive }) =>
