@@ -1,14 +1,15 @@
 // components/Header.jsx
 import { NavLink } from 'react-router-dom';
+import logo from '../assets/images/logo/logo.png';
 
 export default function Header() {
   return (
-    <header className="bg-[#013243] text-white shadow-md px-6 py-4 rounded-b-3xl">
+    <header className="bg-[#013243] text-white shadow-md px-8 py-4 rounded-b-3xl">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo and Brand */}
         <div className="flex items-center space-x-3">
-          <img src="/logo.png" alt="CNS Logo" className="w-10 h-10 rounded-full" />
-          <span className="text-xl font-bold">CNS</span>
+          <img src={logo} alt="CNS Logo" className="w-25 h-10 " />
+          
         </div>
 
         {/* Navigation */}

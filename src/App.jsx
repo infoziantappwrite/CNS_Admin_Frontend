@@ -4,7 +4,10 @@ import Header from './components/Header';
 import ServiceTable from './components/ServiceTable';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
+
 
 function App() {
   const [services, setServices] = useState([
@@ -33,14 +36,17 @@ function App() {
     if (selectedService && selectedService._id === id) setSelectedService(null);
   };
 
+
   const Profile = () => (
     <h1 className="text-center mt-10 text-3xl font-bold">User Profile Page</h1>
   );
 
   return (
-    <div className="max-w-4xl mx-auto p-6 font-sans">
+    <div className="max-w-8xl mx-auto p-6 font-sans">
       <Header />
-      <main className="mt-8">
+
+      <main className="mt-2">
+
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
@@ -59,6 +65,7 @@ function App() {
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }
