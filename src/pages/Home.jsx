@@ -8,7 +8,7 @@ const Home = () => {
       style={{ backgroundImage: `url(${homeImage})` }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-[#013243]/80 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-[#013243]/80 backdrop-blur-none" />
 
       {/* Admin Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl text-white">
@@ -21,25 +21,25 @@ const Home = () => {
 
         <div className="grid sm:grid-cols-2 gap-6 text-left mt-8">
           <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold text-yellow-400 mb-2">Service Control</h2>
+            <h2 className="text-xl font-semibold text-yellow-500 mb-2">Service Control</h2>
             <p className="text-gray-100 text-sm">
               Add, modify, or monitor services such as plumbing, cleaning, electricals, and more.
             </p>
           </div>
           <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold text-yellow-400 mb-2">User Profiles</h2>
+            <h2 className="text-xl font-semibold text-yellow-500 mb-2">User Profiles</h2>
             <p className="text-gray-100 text-sm">
               Manage user access, roles, permissions, and view activity logs in real-time.
             </p>
           </div>
           <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold text-yellow-400 mb-2">Reports & Insights</h2>
+            <h2 className="text-xl font-semibold text-yellow-500 mb-2">Reports & Insights</h2>
             <p className="text-gray-100 text-sm">
               Analyze service performance and gain operational insights through dynamic dashboards.
             </p>
           </div>
           <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold text-yellow-400 mb-2">System Settings</h2>
+            <h2 className="text-xl font-semibold text-yellow-500 mb-2">System Settings</h2>
             <p className="text-gray-100 text-sm">
               Configure platform settings, integrations, and notification preferences with ease.
             </p>
@@ -48,7 +48,7 @@ const Home = () => {
 
         <a
           href="#dashboard"
-          className="mt-10 inline-block bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full shadow-md hover:bg-yellow-300 transition duration-300"
+          className="mt-10 inline-block bg-yellow-500 text-black font-semibold px-6 py-3 rounded-full mb-8 shadow-md hover:bg-yellow-300 transition duration-300"
         >
           Get Started
         </a>

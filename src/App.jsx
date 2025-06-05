@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import ServiceTable from './components/ServiceTable';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
 import Footer from './components/Footer';
+import ServiceTable from './components/ServiceTable';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
-
 
 function App() {
   const [services, setServices] = useState([
@@ -29,28 +28,27 @@ function App() {
 
   const [selectedService, setSelectedService] = useState(null);
 
-  const handleView = (service) => setSelectedService(service);
-
-  const handleDelete = (id) => {
-    setServices(prev => prev.filter(service => service._id !== id));
-    if (selectedService && selectedService._id === id) setSelectedService(null);
+  const handleView = (service) => {
+    setSelectedService(service);
   };
 
-
-  const Profile = () => (
-    <h1 className="text-center mt-10 text-3xl font-bold">User Profile Page</h1>
-  );
+  const handleDelete = (id) => {
+    setServices(prevServices => prevServices.filter(service => service._id !== id));
+    if (selectedService && selectedService._id === id) {
+      setSelectedService(null);
+    }
+  };
 
   return (
-    <div className="max-w-8xl mx-auto p-6 font-sans">
+    <div className="max-w-8xl mx-auto p-3 font-sans">
       <Header />
 
       <main className="mt-2">
-
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route
-            path="/"
+            path="/dashboard"
             element={
               <Dashboard
                 services={services}
@@ -62,9 +60,10 @@ function App() {
             }
           />
           <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+          <Route path="*" element={<h1 className="text-center text-red-500 text-2xl mt-10">404 - Page Not Found</h1>} />
         </Routes>
       </main>
+
       <Footer />
     </div>
   );
