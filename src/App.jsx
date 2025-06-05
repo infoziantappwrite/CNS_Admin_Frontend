@@ -4,6 +4,8 @@ import ServiceTable from './components/ServiceTable';
 import Header from './components/Header';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Footer from './components/Footer';
 
 function App() {
   const [services, setServices] = useState([
@@ -36,9 +38,7 @@ function App() {
     }
   };
 
-  function Profile() {
-    return <h1 className="text-center mt-10 text-3xl font-bold">User Profile Page</h1>;
-  }
+  
 
   function Dashboard() {
     return (
@@ -46,7 +46,7 @@ function App() {
         <h2 className="text-3xl font-bold mb-4">Service Dashboard</h2>
         <ServiceTable services={services} onView={handleView} onDelete={handleDelete} />
         {selectedService && (
-          <div className="mt-8 p-6 border rounded-md bg-gray-50">
+          <div className="mt-8 mb-6 p-6 border rounded-md bg-gray-50">
             <h3 className="text-2xl font-semibold mb-4">Service Details</h3>
             <p><strong>Full Name:</strong> {selectedService.fullName}</p>
             <p><strong>Email:</strong> {selectedService.email}</p>
@@ -72,10 +72,10 @@ function App() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 font-sans">
+    <div className="max-w-8xl mx-auto p-6 font-sans">
       <Header />
 
-      <main className="mt-8">
+      <main className="mt-2">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -84,6 +84,7 @@ function App() {
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }
