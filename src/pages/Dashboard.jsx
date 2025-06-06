@@ -4,7 +4,7 @@ import ServiceTable from '../components/ServiceTable';
 export default function Dashboard({ services, onView, onDelete, selectedService, setSelectedService }) {
   return (
     <div>
-      <h2 className="text-3xl font-bold mb-4 ">Service Dashboard</h2>
+      <h2 className="text-3xl font-bold mb-4 mt-7 ">Service Dashboard</h2>
       <ServiceTable services={services} onView={onView} onDelete={onDelete} />
 
       {selectedService && (

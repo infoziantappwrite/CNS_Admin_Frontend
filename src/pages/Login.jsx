@@ -33,8 +33,8 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen rounded-2xl flex items-center justify-center bg-[#022C3A]/95 px-4 mt-2 mb-2">
-      <div className="bg-white/90 p-10 rounded-3xl shadow-2xl w-full max-w-lg text-center">
+    <div className="min-h-screen rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#5f737a] to-[#013243]  px-4 mt-2 mb-2">
+      <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-lg text-center">
         
         {/* Logo and Brand */}
         <div className="flex flex-col items-center mb-6">
