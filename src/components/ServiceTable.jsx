@@ -35,7 +35,7 @@ const ServiceTable = ({ services, onView, onDelete }) => {
               <td className="py-2 px-4 space-x-2">
                 <button
                   onClick={() => onView(service)}
-                  className="bg-[#022C3A] hover:bg-teal-800 text-white px-3 py-1 rounded transition"
+                  className="bg-[#022C3A] hover:bg-teal-900 text-white px-3 py-1 rounded transition"
                 >
                   View
                 </button>
