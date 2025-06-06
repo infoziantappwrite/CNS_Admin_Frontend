@@ -6,8 +6,8 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
 
   const defaultProfile = {
-    name: '', // from token data
-    email: '', // from token data
+    name: '',
+    email: '',
     role: 'System Administrator',
     department: 'Facility Management',
     bio: 'Responsible for overseeing all administrative operations related to service requests, ensuring smooth workflows, and maintaining quality standards across the CNS platform.',
@@ -15,21 +15,26 @@ export default function Profile() {
 
   const [profileData, setProfileData] = useState(defaultProfile);
 
-  // ✅ Set name/email from localStorage (after login)
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const userData = JSON.parse(localStorage.getItem('user'));
-
-    if (!token || !userData) {
-      navigate('/login'); // if not logged in, redirect
+    const userRaw = localStorage.getItem('user');
+    
+    if (!token || !userRaw) {
+      navigate('/login');
     } else {
-      setProfileData((prev) => ({
-        ...prev,
-        name: userData.userName || '',
-        email: userData.email || '',
-      }));
+      try {
+        const userData = JSON.parse(userRaw);
+        setProfileData((prev) => ({
+          ...prev,
+          name: userData.userName || '',
+          email: userData.email || '',
+        }));
+      } catch (err) {
+        console.error('Invalid user data in localStorage:', err);
+        navigate('/login');
+      }
     }
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e) => {
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
@@ -61,7 +66,7 @@ export default function Profile() {
                   value={profileData[field]}
                   onChange={handleChange}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#013243]"
-                  disabled={field === 'name' || field === 'email'} // don't allow editing name/email
+                  disabled={field === 'name' || field === 'email'}
                 />
               ) : (
                 <p className="text-lg font-medium text-gray-800">{profileData[field]}</p>
