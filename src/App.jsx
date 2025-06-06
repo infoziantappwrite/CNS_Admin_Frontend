@@ -39,6 +39,18 @@ function App() {
     }
   };
 
+const handleUpdate = (updatedService) => {
+  console.log("Updating service:", updatedService); // ✅ Debug log
+  setServices(prevServices =>
+    prevServices.map(service =>
+      service._id === updatedService._id ? updatedService : service
+    )
+  );
+};
+
+
+
+
   return (
     <div className="max-w-8xl mx-auto p-3 font-sans">
       <Header />
@@ -47,18 +59,20 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route
-            path="/dashboard"
-            element={
-              <Dashboard
-                services={services}
-                onView={handleView}
-                onDelete={handleDelete}
-                selectedService={selectedService}
-                setSelectedService={setSelectedService}
-              />
-            }
-          />
+         <Route
+  path="/dashboard"
+  element={
+    <Dashboard
+      services={services}
+      onView={handleView}
+      onDelete={handleDelete}
+      onUpdate={handleUpdate} // ✅ This is correct
+      selectedService={selectedService}
+      setSelectedService={setSelectedService}
+    />
+  }
+/>
+
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<h1 className="text-center text-red-500 text-2xl mt-10">404 - Page Not Found</h1>} />
         </Routes>

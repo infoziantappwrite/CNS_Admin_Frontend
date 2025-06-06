@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ServiceTable from '../components/ServiceTable';
 import {
   XMarkIcon,
@@ -16,7 +16,42 @@ import {
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 
-export default function Dashboard({ services, onView, onDelete, selectedService, setSelectedService }) {
+export default function Dashboard({ services, onView, onDelete,  onUpdate, selectedService, setSelectedService }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedStatus, setEditedStatus] = useState('');
+  const [editedEstimation, setEditedEstimation] = useState('');
+
+  const statusColors = {
+    Pending: 'bg-yellow-100 text-yellow-800',
+    'In Progress': 'bg-blue-100 text-blue-800',
+    Completed: 'bg-green-100 text-green-800',
+    Cancelled: 'bg-red-100 text-red-800'
+  };
+
+  const handleEditClick = () => {
+    setEditedStatus(selectedService.serviceStatus);
+    setEditedEstimation(selectedService.servicePriceEstimation);
+    setIsEditing(true);
+  };
+
+ const handleSave = () => {
+  console.log('Save clicked'); // ✅ Debug log
+  const updatedService = {
+    ...selectedService,
+    serviceStatus: editedStatus,
+    servicePriceEstimation: editedEstimation
+  };
+
+  onUpdate(updatedService); 
+  setSelectedService(null);
+  setIsEditing(false);
+};
+
+
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
   return (
     <div className="min-h-screen rounded-2xl bg-gradient-to-br from-[#5f737a] to-[#013243] p-6 text-white">
       <div className="max-w-7xl mx-auto">
@@ -44,6 +79,7 @@ export default function Dashboard({ services, onView, onDelete, selectedService,
               </h3>
 
               <div className="grid md:grid-cols-2 gap-x-8 gap-y-4 text-gray-800">
+                {/* Display fields */}
                 <p className="flex items-center gap-2">
                   <UserIcon className="h-5 w-5 text-[#013243]" />
                   <strong>Full Name:</strong> {selectedService.fullName}
@@ -60,30 +96,62 @@ export default function Dashboard({ services, onView, onDelete, selectedService,
                   <WrenchScrewdriverIcon className="h-5 w-5 text-[#013243]" />
                   <strong>Service Type:</strong> {selectedService.serviceType}
                 </p>
-                <p className="flex items-center gap-2">
-                  <CheckBadgeIcon className="h-5 w-5 text-[#013243]" />
-                  <strong>Status:</strong> {selectedService.serviceStatus}
-                </p>
-                <p className="flex items-center gap-2">
-                  <CalendarDaysIcon className="h-5 w-5 text-[#013243]" />
-                  <strong>Service Date:</strong> {new Date(selectedService.serviceDate).toLocaleDateString()}
-                </p>
-                <p className="flex items-center gap-2">
-                  <ClockIcon className="h-5 w-5 text-[#013243]" />
-                  <strong>Start Time:</strong> {selectedService.startTime || 'N/A'}
-                </p>
-                <p className="flex items-center gap-2">
-                  <PencilSquareIcon className="h-5 w-5 text-[#013243]" />
-                  <strong>Created At:</strong> {new Date(selectedService.createdAt || selectedService.serviceDate).toLocaleString()}
-                </p>
-                <p className="flex items-center gap-2">
-                  <MapPinIcon className="h-5 w-5 text-[#013243]" />
-                  <strong>Location:</strong> {selectedService.serviceLocation}
-                </p>
-                <p className="flex items-center gap-2">
+
+               {/* Editable Status */}
+<div className="flex items-center gap-2">
+  <CheckBadgeIcon className="h-5 w-5 text-[#013243]" />
+  <strong>Status:</strong>
+  {isEditing ? (
+    <select
+      value={editedStatus}
+      onChange={(e) => setEditedStatus(e.target.value)}
+      className={`ml-2 px-3 py-1 rounded-2xl bg-gray-100 border text-sm font-medium transition-all duration-300
+        ${
+          editedStatus === 'Pending'
+            ? 'text-yellow-700 bg-yellow-100'
+            : editedStatus === 'In Progress'
+            ? 'text-blue-700 bg-blue-100'
+            : editedStatus === 'Completed'
+            ? 'text-green-700 bg-green-100'
+            : editedStatus === 'Cancelled'
+            ? 'text-red-700 bg-red-100'
+            : ''
+        }
+      `}
+    >
+      <option value="Pending">Pending</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+      <option value="Cancelled">Cancelled</option>
+    </select>
+  ) : (
+    <span
+      className={`ml-2 px-2 py-1 rounded text-sm font-semibold ${
+        statusColors[selectedService.serviceStatus] || 'bg-gray-100 text-gray-800'
+      }`}
+    >
+      {selectedService.serviceStatus}
+    </span>
+  )}
+</div>
+
+
+                {/* Editable Price */}
+                <div className="flex items-center gap-2">
                   <CurrencyRupeeIcon className="h-5 w-5 text-[#013243]" />
-                  <strong>Estimation:</strong> ₹{selectedService.servicePriceEstimation}
-                </p>
+                  <strong>Estimation:</strong>
+                  {isEditing ? (
+                    <input
+                      type="number"
+                      value={editedEstimation}
+                      onChange={(e) => setEditedEstimation(e.target.value)}
+                      className="ml-2 border px-2 py-1 rounded w-32"
+                    />
+                  ) : (
+                    <span className="ml-2">₹{selectedService.servicePriceEstimation}</span>
+                  )}
+                </div>
+
                 <p className="flex items-center gap-2">
                   <StarIcon className="h-5 w-5 text-yellow-500" />
                   <strong>Rating:</strong> {selectedService.serviceRating} / 5
@@ -101,10 +169,33 @@ export default function Dashboard({ services, onView, onDelete, selectedService,
                 </div>
               </div>
 
-              <div className="mt-6 text-right">
+              <div className="mt-6 text-right space-x-3">
+                {!isEditing ? (
+                  <button
+                    onClick={handleEditClick}
+                    className="bg-[#013243] text-white px-4 py-2 rounded hover:bg-cyan-900"
+                  >
+                    Edit
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={handleSave}
+                      className="bg-teal-900 text-white px-4 py-2 rounded hover:bg-teal-700"
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={handleCancel}
+                      className="bg-red-800 text-white px-4 py-2 rounded hover:bg-red-600"
+                    >
+                      Cancel
+                    </button>
+                  </>
+                )}
                 <button
                   onClick={() => setSelectedService(null)}
-                  className="bg-[#013243] text-white px-5 py-2 rounded-md hover:bg-teal-900 transition"
+                  className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
                 >
                   Close
                 </button>

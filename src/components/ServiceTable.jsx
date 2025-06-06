@@ -22,12 +22,15 @@ const ServiceTable = ({ services, onView, onDelete }) => {
               <td className="py-2 px-4 text-gray-600 hidden sm:table-cell">{service.phone}</td>
               <td className="py-2 px-4 text-gray-700">{service.serviceType}</td>
               <td className="py-2 px-4 hidden sm:table-cell">
-                <span className={`px-2 py-1 rounded text-xs font-semibold
-                  ${service.serviceStatus === 'Pending' ? 'bg-yellow-100 text-yellow-700' :
-                    service.serviceStatus === 'Completed' ? 'bg-green-100 text-green-700' :
-                    'bg-gray-100 text-gray-700'}`}>
-                  {service.serviceStatus}
-                </span>
+               <span className={`px-2 py-1 rounded text-xs font-semibold
+  ${service.serviceStatus === 'Pending' ? 'bg-yellow-100 text-yellow-700' :
+    service.serviceStatus === 'Completed' ? 'bg-green-100 text-green-700' :
+    service.serviceStatus === 'In Progress' ? 'bg-blue-100 text-blue-700' :
+    service.serviceStatus === 'Cancelled' ? 'bg-red-100 text-red-700' :
+    'bg-gray-100 text-gray-700'}`}>
+  {service.serviceStatus}
+</span>
+
               </td>
               <td className="py-2 px-4 hidden sm:table-cell text-gray-600">
                 {new Date(service.serviceDate).toLocaleDateString()}
