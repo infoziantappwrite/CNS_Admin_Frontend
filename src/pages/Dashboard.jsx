@@ -11,7 +11,9 @@ import {
   StarIcon,
   ClipboardDocumentListIcon,
   WrenchScrewdriverIcon,
-  CheckBadgeIcon
+  CheckBadgeIcon,
+  ClockIcon,
+  PencilSquareIcon
 } from '@heroicons/react/24/outline';
 
 export default function Dashboard({ services, onView, onDelete, selectedService, setSelectedService }) {
@@ -21,7 +23,6 @@ export default function Dashboard({ services, onView, onDelete, selectedService,
         <h2 className="text-4xl font-extrabold mb-6 text-center">Service Dashboard</h2>
 
         <div className="bg-white rounded-lg shadow-lg overflow-hidden p-4 sm:p-6 text-black">
-      
           <ServiceTable services={services} onView={onView} onDelete={onDelete} />
         </div>
 
@@ -65,7 +66,15 @@ export default function Dashboard({ services, onView, onDelete, selectedService,
                 </p>
                 <p className="flex items-center gap-2">
                   <CalendarDaysIcon className="h-5 w-5 text-[#013243]" />
-                  <strong>Date:</strong> {new Date(selectedService.serviceDate).toLocaleString()}
+                  <strong>Service Date:</strong> {new Date(selectedService.serviceDate).toLocaleDateString()}
+                </p>
+                <p className="flex items-center gap-2">
+                  <ClockIcon className="h-5 w-5 text-[#013243]" />
+                  <strong>Start Time:</strong> {selectedService.startTime || 'N/A'}
+                </p>
+                <p className="flex items-center gap-2">
+                  <PencilSquareIcon className="h-5 w-5 text-[#013243]" />
+                  <strong>Created At:</strong> {new Date(selectedService.createdAt || selectedService.serviceDate).toLocaleString()}
                 </p>
                 <p className="flex items-center gap-2">
                   <MapPinIcon className="h-5 w-5 text-[#013243]" />
