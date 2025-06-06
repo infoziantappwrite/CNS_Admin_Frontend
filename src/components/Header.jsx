@@ -7,7 +7,6 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // This effect re-checks login status on every route change
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
@@ -33,7 +32,7 @@ export default function Header() {
               isActive ? "text-yellow-400 font-bold" : "hover:text-yellow-400 transition"
             }
           >
-            Home
+           Home
           </NavLink>
 
           {!isLoggedIn ? (
