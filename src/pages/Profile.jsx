@@ -1,15 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
 
-  const [profileData, setProfileData] = useState({
-    name: 'CNS Admin',
-    email: 'admin@cnsservices.com',
+  const defaultProfile = {
+    name: '', // from token data
+    email: '', // from token data
     role: 'System Administrator',
     department: 'Facility Management',
-    bio: 'Responsible for overseeing all administrative operations related to service requests, ensuring smooth workflows, and maintaining quality standards across the CNS platform.'
-  });
+    bio: 'Responsible for overseeing all administrative operations related to service requests, ensuring smooth workflows, and maintaining quality standards across the CNS platform.',
+  };
+
+  const [profileData, setProfileData] = useState(defaultProfile);
+
+  // ✅ Set name/email from localStorage (after login)
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userData = JSON.parse(localStorage.getItem('user'));
+
+    if (!token || !userData) {
+      navigate('/login'); // if not logged in, redirect
+    } else {
+      setProfileData((prev) => ({
+        ...prev,
+        name: userData.userName || '',
+        email: userData.email || '',
+      }));
+    }
+  }, []);
 
   const handleChange = (e) => {
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
@@ -17,6 +37,12 @@ export default function Profile() {
 
   const toggleEdit = () => {
     setIsEditing(!isEditing);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
   };
 
   return (
@@ -35,6 +61,7 @@ export default function Profile() {
                   value={profileData[field]}
                   onChange={handleChange}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#013243]"
+                  disabled={field === 'name' || field === 'email'} // don't allow editing name/email
                 />
               ) : (
                 <p className="text-lg font-medium text-gray-800">{profileData[field]}</p>
@@ -58,12 +85,19 @@ export default function Profile() {
           </div>
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-10 flex justify-center gap-4">
           <button
             onClick={toggleEdit}
             className="bg-[#013243] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#01485e] transition duration-300"
           >
             {isEditing ? 'Save Profile' : 'Edit Profile'}
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-red-700 transition duration-300"
+          >
+            Logout
           </button>
         </div>
       </div>

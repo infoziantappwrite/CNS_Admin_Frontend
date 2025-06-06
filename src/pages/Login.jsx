@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import icon from '../assets/images/logo/icon.png'; 
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +23,7 @@ export default function Login() {
 
       if (response.data.success) {
         localStorage.setItem('token', response.data.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.data.user));
         navigate('/dashboard'); // go to dashboard
       } else {
         setError(response.data.message || 'Login failed');
@@ -31,6 +32,13 @@ export default function Login() {
       setError(err.response?.data?.message || 'Login failed');
     }
   };
+  
+  useEffect(() => {
+  if (localStorage.getItem('token')) {
+    navigate('/dashboard');
+  }
+}, []);
+
 
   return (
     <div className="min-h-screen rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#5f737a] to-[#013243]  px-4 mt-2 mb-2">

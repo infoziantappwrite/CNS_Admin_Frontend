@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
+import ProtectedRoute from './components/ProtectedRoute';
+
 
 function App() {
   const [services, setServices] = useState([
@@ -62,16 +64,19 @@ const handleUpdate = (updatedService) => {
          <Route
   path="/dashboard"
   element={
-    <Dashboard
-      services={services}
-      onView={handleView}
-      onDelete={handleDelete}
-      onUpdate={handleUpdate} // ✅ This is correct
-      selectedService={selectedService}
-      setSelectedService={setSelectedService}
-    />
+    <ProtectedRoute>
+      <Dashboard
+        services={services}
+        onView={handleView}
+        onDelete={handleDelete}
+        onUpdate={handleUpdate}
+        selectedService={selectedService}
+        setSelectedService={setSelectedService}
+      />
+    </ProtectedRoute>
   }
 />
+
 
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<h1 className="text-center text-red-500 text-2xl mt-10">404 - Page Not Found</h1>} />
