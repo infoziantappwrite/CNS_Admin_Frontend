@@ -8,24 +8,22 @@ export default function Header() {
   const location = useLocation();
 
   useEffect(() => {
-    const user = localStorage.getItem('user'); // ✅ check for user instead of token
-    setIsLoggedIn(!!user); // convert to boolean
+    const user = localStorage.getItem('user');
+    setIsLoggedIn(!!user);
   }, [location]);
 
   const handleLogout = () => {
-    localStorage.removeItem('user'); // ✅ remove user on logout
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
   return (
     <header className="bg-[#013243] text-white shadow-md px-8 py-4 rounded-b-3xl">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo */}
         <div className="flex items-center space-x-3">
           <img src={logo} alt="CNS Logo" className="w-25 h-10" />
         </div>
 
-        {/* Navigation */}
         <nav className="flex space-x-6 items-center font-medium">
           <NavLink
             to="/"
@@ -34,6 +32,15 @@ export default function Header() {
             }
           >
             Home
+          </NavLink>
+
+          <NavLink
+            to="/review"
+            className={({ isActive }) =>
+              isActive ? "text-yellow-400 font-bold" : "hover:text-yellow-400 transition"
+            }
+          >
+            Review
           </NavLink>
 
           {!isLoggedIn ? (

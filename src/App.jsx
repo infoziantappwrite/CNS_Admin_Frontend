@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
+import Review from './pages/Review';
 axios.defaults.withCredentials = true; // ✅ Send cookies with all requests
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
             }
           />
           <Route path="/profile" element={<Profile />} />
+            <Route path="/review" element={<Review />} />
           <Route
             path="*"
             element={
