@@ -16,14 +16,13 @@ import {
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 
-export default function Dashboard({ services, onView, onDelete,  onUpdate, selectedService, setSelectedService }) {
+export default function Dashboard({ services, onView, onDelete, onUpdate, selectedService, setSelectedService }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedStatus, setEditedStatus] = useState('');
   const [editedEstimation, setEditedEstimation] = useState('');
 
   const statusColors = {
     Pending: 'bg-yellow-100 text-yellow-800',
-    'In Progress': 'bg-blue-100 text-blue-800',
     Completed: 'bg-green-100 text-green-800',
     Cancelled: 'bg-red-100 text-red-800'
   };
@@ -34,18 +33,18 @@ export default function Dashboard({ services, onView, onDelete,  onUpdate, selec
     setIsEditing(true);
   };
 
- const handleSave = () => {
-  console.log('Save clicked'); // ✅ Debug log
-  const updatedService = {
-    ...selectedService,
-    serviceStatus: editedStatus,
-    servicePriceEstimation: editedEstimation
-  };
+  const handleSave = () => {
+    console.log('Save clicked'); // ✅ Debug log
+    const updatedService = {
+      ...selectedService,
+      serviceStatus: editedStatus,
+      servicePriceEstimation: editedEstimation
+    };
 
-  onUpdate(updatedService); 
-  setSelectedService(null);
-  setIsEditing(false);
-};
+    onUpdate(updatedService);
+    setSelectedService(null);
+    setIsEditing(false);
+  };
 
 
   const handleCancel = () => {
@@ -53,11 +52,11 @@ export default function Dashboard({ services, onView, onDelete,  onUpdate, selec
   };
 
   return (
-    <div className="min-h-screen rounded-2xl bg-gradient-to-br from-[#5f737a] to-[#013243] p-6 text-white">
+    <div className="min-h-screen rounded-3xl bg-gradient-to-br from-[#5f737a] to-[#013243] p-6 text-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-extrabold mb-6 text-center">Service Dashboard</h2>
 
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden p-4 sm:p-6 text-black">
+        <div className="">
           <ServiceTable services={services} onView={onView} onDelete={onDelete} />
         </div>
 
@@ -97,43 +96,41 @@ export default function Dashboard({ services, onView, onDelete,  onUpdate, selec
                   <strong>Service Type:</strong> {selectedService.serviceType}
                 </p>
 
-               {/* Editable Status */}
-<div className="flex items-center gap-2">
-  <CheckBadgeIcon className="h-5 w-5 text-[#013243]" />
-  <strong>Status:</strong>
-  {isEditing ? (
-    <select
-      value={editedStatus}
-      onChange={(e) => setEditedStatus(e.target.value)}
-      className={`ml-2 px-3 py-1 rounded-2xl bg-gray-100 border text-sm font-medium transition-all duration-300
-        ${
-          editedStatus === 'Pending'
-            ? 'text-yellow-700 bg-yellow-100'
-            : editedStatus === 'In Progress'
-            ? 'text-blue-700 bg-blue-100'
-            : editedStatus === 'Completed'
-            ? 'text-green-700 bg-green-100'
-            : editedStatus === 'Cancelled'
-            ? 'text-red-700 bg-red-100'
-            : ''
-        }
+                {/* Editable Status */}
+                <div className="flex items-center gap-2">
+                  <CheckBadgeIcon className="h-5 w-5 text-[#013243]" />
+                  <strong>Status:</strong>
+                  {isEditing ? (
+                    <select
+                      value={editedStatus}
+                      onChange={(e) => setEditedStatus(e.target.value)}
+                      className={`ml-2 px-3 py-1 rounded-2xl bg-gray-100 border text-sm font-medium transition-all duration-300
+        ${editedStatus === 'Pending'
+                          ? 'text-yellow-700 bg-yellow-100'
+                          : editedStatus === 'In Progress'
+                            ? 'text-blue-700 bg-blue-100'
+                            : editedStatus === 'Completed'
+                              ? 'text-green-700 bg-green-100'
+                              : editedStatus === 'Cancelled'
+                                ? 'text-red-700 bg-red-100'
+                                : ''
+                        }
       `}
-    >
-      <option value="Pending">Pending</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Completed">Completed</option>
-      <option value="Cancelled">Cancelled</option>
-    </select>
-  ) : (
-    <span
-      className={`ml-2 px-2 py-1 rounded text-sm font-semibold ${
-        statusColors[selectedService.serviceStatus] || 'bg-gray-100 text-gray-800'
-      }`}
-    >
-      {selectedService.serviceStatus}
-    </span>
-  )}
-</div>
+                    >
+                      <option value="Pending">Pending</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Cancelled">Cancelled</option>
+                    </select>
+                  ) : (
+                    <span
+                      className={`ml-2 px-2 py-1 rounded text-sm font-semibold ${statusColors[selectedService.serviceStatus] || 'bg-gray-100 text-gray-800'
+                        }`}
+                    >
+                      {selectedService.serviceStatus}
+                    </span>
+                  )}
+                </div>
 
 
                 {/* Editable Price */}

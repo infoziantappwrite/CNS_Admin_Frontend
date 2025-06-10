@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import icon from '../assets/images/logo/icon.png';
@@ -35,7 +35,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#5f737a] to-[#013243] px-4">
+    <div className="min-h-screen flex items-center rounded-3xl justify-center bg-gradient-to-br from-[#5f737a] to-[#013243] px-4">
       <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-lg text-center">
 
         {/* Logo + Quote */}

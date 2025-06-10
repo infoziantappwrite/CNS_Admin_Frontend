@@ -9,7 +9,7 @@ import icon from '../assets/images/logo/icon.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#022C3A] text-white py-12 px-6 sm:px-12 rounded-t-3xl mt-6">
+    <footer className="bg-[#022C3A] text-white py-12 px-6 sm:px-12 rounded-3xl mt-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-5 gap-10">
         {/* Logo & Description */}
         <div className="md:col-span-1">

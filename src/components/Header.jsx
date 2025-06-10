@@ -18,7 +18,7 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-[#013243] text-white shadow-md px-8 py-4 rounded-b-3xl">
+    <header className="bg-[#013243] text-white shadow-md px-8 py-4 rounded-3xl">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-3">
           <img src={logo} alt="CNS Logo" className="w-25 h-10" />
@@ -34,14 +34,7 @@ export default function Header() {
             Home
           </NavLink>
 
-          <NavLink
-            to="/review"
-            className={({ isActive }) =>
-              isActive ? "text-yellow-400 font-bold" : "hover:text-yellow-400 transition"
-            }
-          >
-            Review
-          </NavLink>
+          
 
           {!isLoggedIn ? (
             <NavLink
