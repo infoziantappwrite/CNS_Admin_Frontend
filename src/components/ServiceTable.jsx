@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const ServiceTable = ({ services, onView, onDelete }) => {
+const ServiceTable = ({ services, onDelete }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="overflow-x-auto rounded-xl shadow-md border border-teal-200 mt-2 mb-2">
       <table className="min-w-full divide-y divide-teal-200 text-sm sm:text-base">
@@ -37,7 +40,7 @@ const ServiceTable = ({ services, onView, onDelete }) => {
                 </td>
                 <td className="py-2 px-4 space-x-2">
                   <button
-                    onClick={() => onView(service)}
+                    onClick={() => navigate(`/servicedetails/${service._id}`)}
                     className="bg-[#022C3A] hover:bg-teal-900 text-white px-3 py-1 rounded transition"
                   >
                     View
